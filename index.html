@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College Inquiry Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    form {
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="text"], input[type="email"] {
+      width: 300px;
+      padding: 8px;
+    }
+    input[type="submit"] {
+      margin-top: 15px;
+      padding: 10px 20px;
+    }
+    df-messenger {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Welcome to the College Inquiry Chatbot</h2>
+
+  <form id="user-info-form">
+    <label>First Name:</label>
+    <input type="text" id="first-name" name="first-name" required>
+
+    <label>Last Name:</label>
+    <input type="text" id="last-name" name="last-name" required>
+
+    <label>Email Address:</label>
+    <input type="email" id="email" name="email" required>
+
+    <input type="submit" value="Start Chat">
+  </form>
+
+  <div id="user-info-display" style="display:none;">
+    <p><strong>Chat started for:</strong></p>
+    <ul>
+      <li><span id="show-first-name"></span> <span id="show-last-name"></span></li>
+      <li><span id="show-email"></span></li>
+    </ul>
+    <p><strong>You can now ask your questions to the chatbot below.</strong></p>
+  </div>
+
+  <!-- Dialogflow Messenger -->
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="CollegeInquiryBot"
+    agent-id="58da6587-fe26-4e16-8e5c-a1c0a345d52f"
+    language-code="en"
+  ></df-messenger>
+
+  <script>
+    document.getElementById('user-info-form').onsubmit = function(e) {
+      e.preventDefault();
+
+      const firstName = document.getElementById('first-name').value;
+      const lastName = document.getElementById('last-name').value;
+      const email = document.getElementById('email').value;
+
+      document.getElementById('user-info-form').style.display = 'none';
+      document.getElementById('user-info-display').style.display = 'block';
+      document.getElementById('show-first-name').innerText = firstName;
+      document.getElementById('show-last-name').innerText = lastName;
+      document.getElementById('show-email').innerText = email;
+    };
+  </script>
+
+</body>
+</html>
